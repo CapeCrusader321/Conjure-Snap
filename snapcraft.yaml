@@ -2,6 +2,9 @@ name: conjure
 base: core22
 adopt-info: conjure
 grade: stable
+summary: Magically transform images
+description: |
+   Apply various ImageMagick commands to your images, including resizing, cropping, rotating, flipping, and applying filters and effects.
 confinement: strict
 compression: lzo
 architectures:
