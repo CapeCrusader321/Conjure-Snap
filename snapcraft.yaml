@@ -1,0 +1,53 @@
+name: conjure
+base: core22
+adopt-info: conjure
+grade: stable
+confinement: strict
+compression: lzo
+architectures:
+  - build-on: amd64
+  - build-on: armhf
+  - build-on: arm64
+  
+slots:
+  conjure:
+    interface: dbus
+    bus: session
+    name: io.github.nate_xyz.Conjure
+
+environment:
+  # WORKAROUND: Add python modules in Snap to search path
+  PYTHONPATH: ${SNAP}/usr/lib/python3/dist-packages:$PYTHONPATH
+
+apps:
+  conjure:
+    command: usr/bin/conjure
+    extensions: [gnome]
+    plugs:
+      - home
+      - network
+      - optical-drive
+      - removable-media
+    common-id: io.github.nate_xyz.Conjure
+    desktop: usr/share/applications/io.github.nate_xyz.Conjure.desktop
+    
+    
+parts:
+  conjure:
+    source: https://github.com/nate-xyz/conjure.git
+    source-tag: v0.1.2
+    plugin: meson
+    parse-info: [usr/share/metainfo/io.github.nate_xyz.Conjure.appdata.xml.in]
+    meson-parameters:
+      - --prefix=/snap/conjure/current/usr
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=0)
+      sed -e 's|Icon=io.github.nate_xyz.Conjure|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/io.github.nate_xyz.Conjure.svg|' -i data/io.github.nate_xyz.Conjure.desktop.in
+    override-build: |
+      craftctl default
+      # WORKAROUND: Use python from search path, the path detected by meson doesn't exist when running the Snap
+      sed -e '1c#!/usr/bin/env python3' -i ${CRAFT_PART_INSTALL}/snap/conjure/current/usr/bin/conjure
+    organize:
+      snap/conjure/current/usr: usr
+ 
