@@ -37,13 +37,12 @@ parts:
     source: https://github.com/nate-xyz/conjure.git
     source-tag: v0.1.2
     plugin: meson
-    parse-info: [usr/share/metainfo/io.github.nate_xyz.Conjure.appdata.xml.in]
+    parse-info: [usr/share/metainfo/io.github.nate_xyz.Conjure.appdata.xml]
     meson-parameters:
       - --prefix=/snap/conjure/current/usr
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=0)
-      sed -e 's|Icon=io.github.nate_xyz.Conjure|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/io.github.nate_xyz.Conjure.svg|' -i data/io.github.nate_xyz.Conjure.desktop.in
     override-build: |
       craftctl default
       # WORKAROUND: Use python from search path, the path detected by meson doesn't exist when running the Snap
