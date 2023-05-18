@@ -54,14 +54,8 @@ parts:
     stage-packages:
       - python3-loguru
       - python3-wand
+      - imagemagick
     organize:
       snap/conjure/current/usr: usr
     
-  imagemagick:
-    source: https://github.com/ImageMagick/ImageMagick.git
-    source-tag: 7.1.1-9
-    plugin: make
-    make-parameters:
-      - -prefix=/usr
-    build-packages:
-      - build-essential
+  
