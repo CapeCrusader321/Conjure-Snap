@@ -38,6 +38,7 @@ apps:
 parts:
   conjure:
     source: https://github.com/nate-xyz/conjure.git
+    after: [imagemagick]
     source-tag: v0.1.2
     plugin: meson
     parse-info: [usr/share/metainfo/io.github.nate_xyz.Conjure.appdata.xml]
@@ -55,4 +56,12 @@ parts:
       - python3-wand
     organize:
       snap/conjure/current/usr: usr
- 
+    
+  imagemagick:
+    source: https://github.com/ImageMagick/ImageMagick.git
+    source-tag: 7.1.1-9
+    plugin: make
+    make-parameters:
+      - --prefix=/usr
+    build-packages:
+      - build-essential
