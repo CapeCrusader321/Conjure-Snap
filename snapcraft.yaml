@@ -54,7 +54,9 @@ parts:
     stage-packages:
       - python3-loguru
       - python3-wand
-      - imagemagick
+      - libpnglite0
+      - libpng-tools
+      - libjpeg-tools
     organize:
       snap/conjure/current/usr: usr
     
