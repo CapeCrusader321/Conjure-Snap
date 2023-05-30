@@ -38,7 +38,6 @@ apps:
 parts:
   conjure:
     source: https://github.com/nate-xyz/conjure.git
-    source-tag: v0.1.2
     plugin: meson
     parse-info: [usr/share/metainfo/io.github.nate_xyz.Conjure.appdata.xml]
     meson-parameters:
